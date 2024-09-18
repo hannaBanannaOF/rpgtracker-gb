@@ -1,0 +1,522 @@
+{
+  "databaseChangeLog": [
+    {
+      "changeSet": {
+        "preConditions": [
+          {
+            "onFail": "MARK_RAN",
+            "not": [
+              {
+                "tableExists": {
+                  "tableName": "session"
+                }
+              }
+            ]
+          }
+        ],
+        "id": "202409050919",
+        "author": "HannaBananna",
+        "changes": [
+          {
+            "createTable": {
+              "tableName": "session",
+              "columns": [
+                {
+                  "column": {
+                    "name": "id",
+                    "type": "uuid",
+                    "constraints": {
+                      "primaryKey": true,
+                      "nullable": false
+                    },
+                    "defaultValueComputed": "gen_random_uuid()"
+                  }
+                },
+                {
+                  "column": {
+                    "name": "core_session_id",
+                    "type": "uuid",
+                    "constraints": {
+                      "nullable": false
+                    }
+                  }
+                },
+                {
+                  "column": {
+                    "name": "headquarters",
+                    "type": "boolean",
+                    "constraints": {
+                      "nullable": false
+                    },
+                    "defaultValueBoolean": false
+                  }
+                },
+                {
+                  "column": {
+                    "name": "team_savings",
+                    "type": "numeric(6,2)",
+                    "constraints": {
+                      "nullable": false
+                    },
+                    "defaultValueNumeric": 0.0
+                  }
+                },
+                {
+                  "column": {
+                    "name": "containment_grid_capacity",
+                    "type": "integer",
+                    "constraints": {
+                      "nullable": false
+                    },
+                    "defaultValueNumeric": 0
+                  }
+                },
+                {
+                  "column": {
+                    "name": "create_date",
+                    "type": "timestamp",
+                    "constraints": {
+                      "nullable": false
+                    },
+                    "defaultValueDate": "current_timestamp"
+                  }
+                },
+                {
+                  "column": {
+                    "name": "update_date",
+                    "type": "timestamp",
+                    "constraints": {
+                      "nullable": false
+                    },
+                    "defaultValueDate": "current_timestamp"
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "changeSet": {
+        "preConditions": [
+          {
+            "onFail": "MARK_RAN",
+            "not": [
+              {
+                "tableExists": {
+                  "tableName": "talent"
+                }
+              }
+            ]
+          }
+        ],
+        "id": "202409051050",
+        "author": "HannaBananna",
+        "changes": [
+          {
+            "createTable": {
+              "tableName": "talent",
+              "columns": [
+                {
+                  "column": {
+                    "name": "id",
+                    "type": "uuid",
+                    "constraints": {
+                      "primaryKey": true,
+                      "nullable": false
+                    },
+                    "defaultValueComputed": "gen_random_uuid()"
+                  }
+                },
+                {
+                  "column": {
+                    "name": "name",
+                    "type": "varchar(200)",
+                    "constraints": {
+                      "nullable": false
+                    }
+                  }
+                },
+                {
+                  "column": {
+                    "name": "trait",
+                    "type": "varchar(45)",
+                    "constraints": {
+                      "nullable": false
+                    }
+                  }
+                },
+                {
+                  "column": {
+                    "name": "create_date",
+                    "type": "timestamp",
+                    "constraints": {
+                      "nullable": false
+                    },
+                    "defaultValueDate": "current_timestamp"
+                  }
+                },
+                {
+                  "column": {
+                    "name": "update_date",
+                    "type": "timestamp",
+                    "constraints": {
+                      "nullable": false
+                    },
+                    "defaultValueDate": "current_timestamp"
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "changeSet": {
+        "preConditions": [
+          {
+            "onFail": "MARK_RAN",
+            "not": [
+              {
+                "tableExists": {
+                  "tableName": "character_sheet"
+                }
+              }
+            ]
+          },
+          {
+            "tableExists": {
+              "tableName": "talent"
+            }
+          }
+        ],
+        "id": "202409051051",
+        "author": "HannaBananna",
+        "changes": [
+          {
+            "createTable": {
+              "tableName": "character_sheet",
+              "columns": [
+                {
+                  "column": {
+                    "name": "id",
+                    "type": "uuid",
+                    "constraints": {
+                      "primaryKey": true,
+                      "nullable": false
+                    },
+                    "defaultValueComputed": "gen_random_uuid()"
+                  }
+                },
+                {
+                  "column": {
+                    "name": "core_character_sheet_id",
+                    "type": "uuid",
+                    "constraints": {
+                      "nullable": false
+                    }
+                  }
+                },
+                {
+                  "column": {
+                    "name": "brains",
+                    "type": "integer",
+                    "constraints": {
+                      "nullable": false
+                    }
+                  }
+                },
+                {
+                  "column": {
+                    "name": "brains_talent",
+                    "type": "uuid",
+                    "constraints": {
+                      "foreignKeyName": "fk_talent_character_sheet_brains",
+                      "references": "talent(id)"
+                    }
+                  }
+                },
+                {
+                  "column": {
+                    "name": "muscle",
+                    "type": "integer",
+                    "constraints": {
+                      "nullable": false
+                    }
+                  }
+                },
+                {
+                  "column": {
+                    "name": "muscle_talent",
+                    "type": "uuid",
+                    "constraints": {
+                      "foreignKeyName": "fk_talent_character_sheet_muscle",
+                      "references": "talent(id)"
+                    }
+                  }
+                },
+                {
+                  "column": {
+                    "name": "moves",
+                    "type": "integer",
+                    "constraints": {
+                      "nullable": false
+                    }
+                  }
+                },
+                {
+                  "column": {
+                    "name": "moves_talent",
+                    "type": "uuid",
+                    "constraints": {
+                      "foreignKeyName": "fk_talent_character_sheet_moves",
+                      "references": "talent(id)"
+                    }
+                  }
+                },
+                {
+                  "column": {
+                    "name": "cool",
+                    "type": "integer",
+                    "constraints": {
+                      "nullable": false
+                    }
+                  }
+                },
+                {
+                  "column": {
+                    "name": "cool_talent",
+                    "type": "uuid",
+                    "constraints": {
+                      "foreignKeyName": "fk_talent_character_sheet_cool",
+                      "references": "talent(id)"
+                    }
+                  }
+                },
+                {
+                  "column": {
+                    "name": "brownie_points",
+                    "type": "integer",
+                    "constraints": {
+                      "nullable": false
+                    }
+                  }
+                },
+                {
+                  "column": {
+                    "name": "create_date",
+                    "type": "timestamp",
+                    "constraints": {
+                      "nullable": false
+                    },
+                    "defaultValueDate": "current_timestamp"
+                  }
+                },
+                {
+                  "column": {
+                    "name": "update_date",
+                    "type": "timestamp",
+                    "constraints": {
+                      "nullable": false
+                    },
+                    "defaultValueDate": "current_timestamp"
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "changeSet": {
+        "preConditions": [
+          {
+            "onFail": "MARK_RAN",
+            "not": [
+              {
+                "tableExists": {
+                  "tableName": "equipment"
+                }
+              }
+            ]
+          }
+        ],
+        "id": "202409051337",
+        "author": "HannaBananna",
+        "changes": [
+          {
+            "createTable": {
+              "tableName": "equipment",
+              "columns": [
+                {
+                  "column": {
+                    "name": "id",
+                    "type": "uuid",
+                    "constraints": {
+                      "primaryKey": true,
+                      "nullable": false
+                    },
+                    "defaultValueComputed": "gen_random_uuid()"
+                  }
+                },
+                {
+                  "column": {
+                    "name": "name",
+                    "type": "varchar(200)",
+                    "constraints": {
+                      "nullable": false
+                    }
+                  }
+                },
+                {
+                  "column": {
+                    "name": "description",
+                    "type": "text",
+                    "constraints": {
+                      "nullable": false
+                    }
+                  }
+                },
+                {
+                  "column": {
+                    "name": "weight",
+                    "type": "integer",
+                    "constraints": {
+                      "nullable": false
+                    }
+                  }
+                },
+                {
+                  "column": {
+                    "name": "cost",
+                    "type": "numeric(6,2)",
+                    "constraints": {
+                      "nullable": false
+                    }
+                  }
+                },
+                {
+                  "column": {
+                    "name": "create_date",
+                    "type": "timestamp",
+                    "constraints": {
+                      "nullable": false
+                    },
+                    "defaultValueDate": "current_timestamp"
+                  }
+                },
+                {
+                  "column": {
+                    "name": "update_date",
+                    "type": "timestamp",
+                    "constraints": {
+                      "nullable": false
+                    },
+                    "defaultValueDate": "current_timestamp"
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "changeSet": {
+        "preConditions": [
+          {
+            "onFail": "MARK_RAN",
+            "not": [
+              {
+                "tableExists": {
+                  "tableName": "ecto_one"
+                }
+              }
+            ]
+          }
+        ],
+        "id": "202409172331",
+        "author": "HannaBananna",
+        "changes": [
+          {
+            "createTable": {
+              "tableName": "ecto_one",
+              "columns": [
+                {
+                  "column": {
+                    "name": "id",
+                    "type": "uuid",
+                    "constraints": {
+                      "primaryKey": true,
+                      "nullable": false
+                    },
+                    "defaultValueComputed": "gen_random_uuid()"
+                  }
+                },
+                {
+                  "column": {
+                    "name": "name",
+                    "type": "varchar(200)",
+                    "constraints": {
+                      "nullable": false
+                    }
+                  }
+                },
+                {
+                  "column": {
+                    "name": "cost",
+                    "type": "numeric(6,2)",
+                    "constraints": {
+                      "nullable": false
+                    }
+                  }
+                },
+                {
+                  "column": {
+                    "name": "carry_weight",
+                    "type": "integer",
+                    "constraints": {
+                      "nullable": false
+                    }
+                  }
+                },
+                {
+                  "column": {
+                    "name": "seats",
+                    "type": "integer",
+                    "constraints": {
+                      "nullable": false
+                    }
+                  }
+                },
+                {
+                  "column": {
+                    "name": "create_date",
+                    "type": "timestamp",
+                    "constraints": {
+                      "nullable": false
+                    },
+                    "defaultValueDate": "current_timestamp"
+                  }
+                },
+                {
+                  "column": {
+                    "name": "update_date",
+                    "type": "timestamp",
+                    "constraints": {
+                      "nullable": false
+                    },
+                    "defaultValueDate": "current_timestamp"
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ]
+}
