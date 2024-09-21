@@ -21,7 +21,7 @@ import java.util.UUID;
 public class TalentServiceV1 implements TalentService {
 
     @Inject
-    TalentRepository talentRepository;
+    private TalentRepository talentRepository;
 
     @Override
     public Uni<List<BasicListDTO>> getAll(CRUDGetAllParams params) {

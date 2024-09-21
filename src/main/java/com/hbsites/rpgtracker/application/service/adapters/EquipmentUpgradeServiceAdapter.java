@@ -7,9 +7,9 @@ import com.hbsites.commons.domain.params.CRUDGetOneParams;
 import com.hbsites.commons.domain.params.CRUDUpdateParams;
 import com.hbsites.commons.domain.params.DefaultParams;
 import com.hbsites.commons.domain.service.VersionedService;
-import com.hbsites.rpgtracker.application.service.interfaces.EctoOneService;
-import com.hbsites.rpgtracker.application.service.v1.EctoOneServiceV1;
-import com.hbsites.rpgtracker.domain.dto.EctoOneDTO;
+import com.hbsites.rpgtracker.application.service.interfaces.EquipmentUpgradeService;
+import com.hbsites.rpgtracker.application.service.v1.EquipmentUpgradeServiceV1;
+import com.hbsites.rpgtracker.domain.dto.EquipmentUpgradeDTO;
 import io.smallrye.mutiny.Uni;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -17,10 +17,10 @@ import jakarta.inject.Inject;
 import java.util.List;
 
 @ApplicationScoped
-public class EctoOneServiceAdapter extends VersionedService<EctoOneService> implements EctoOneService {
+public class EquipmentUpgradeServiceAdapter extends VersionedService<EquipmentUpgradeService> implements EquipmentUpgradeService {
 
     @Inject
-    EctoOneServiceV1 ectoOneServiceV1;
+    private EquipmentUpgradeServiceV1 equipmentUpgradeServiceV1;
 
     @Override
     public Uni<List<BasicListDTO>> getAll(CRUDGetAllParams params) {
@@ -28,17 +28,17 @@ public class EctoOneServiceAdapter extends VersionedService<EctoOneService> impl
     }
 
     @Override
-    public Uni<EctoOneDTO> create(DefaultParams params, EctoOneDTO create) {
+    public Uni<EquipmentUpgradeDTO> create(DefaultParams params, EquipmentUpgradeDTO create) {
         return getServiceByApiVersion(params.getApiVersion()).create(params, create);
     }
 
     @Override
-    public Uni<EctoOneDTO> getOne(CRUDGetOneParams params) {
+    public Uni<EquipmentUpgradeDTO> getOne(CRUDGetOneParams params) {
         return getServiceByApiVersion(params.getApiVersion()).getOne(params);
     }
 
     @Override
-    public Uni<EctoOneDTO> update(CRUDUpdateParams params, EctoOneDTO updated) {
+    public Uni<EquipmentUpgradeDTO> update(CRUDUpdateParams params, EquipmentUpgradeDTO updated) {
         return getServiceByApiVersion(params.getApiVersion()).update(params, updated);
     }
 
@@ -48,9 +48,9 @@ public class EctoOneServiceAdapter extends VersionedService<EctoOneService> impl
     }
 
     @Override
-    protected EctoOneService getServiceByApiVersion(int apiVersion) {
+    protected EquipmentUpgradeService getServiceByApiVersion(int apiVersion) {
         return switch (apiVersion) {
-            default -> ectoOneServiceV1;
+            default -> equipmentUpgradeServiceV1;
         };
     }
 }

@@ -8,7 +8,6 @@ import com.hbsites.commons.domain.params.CRUDUpdateParams;
 import com.hbsites.commons.domain.params.DefaultParams;
 import com.hbsites.rpgtracker.application.service.interfaces.EctoOneService;
 import com.hbsites.rpgtracker.domain.dto.EctoOneDTO;
-import com.hbsites.rpgtracker.domain.dto.EquipmentDTO;
 import com.hbsites.rpgtracker.infraestructure.repository.interfaces.EctoOneRepository;
 import io.smallrye.mutiny.Uni;
 import jakarta.enterprise.context.ApplicationScoped;
